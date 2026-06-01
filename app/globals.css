@@ -290,21 +290,78 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; margin: 0; 
 .hero__sweep { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(105deg, transparent 30%, rgba(255,246,228,0.18) 48%, transparent 66%); transform: translateX(-130%); }
 .hero.is-revealed .hero__sweep { animation: heroSweep 1.9s ease 0.25s 1; }
 @keyframes heroSweep { to { transform: translateX(130%); } }
-.hero__eyebrow { font-size: 0.72rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--gold-bright); margin-bottom: 1.6rem; }
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  font-size: clamp(0.76rem, 2vw, 0.92rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin: 0 auto 1.15rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.45);
+}
+.hero__eyebrow::before,
+.hero__eyebrow::after {
+  content: "";
+  width: clamp(18px, 5vw, 42px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.68;
+}
 .hero__names {
   color: var(--blush);
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(2.7rem, 12vw, 6.1rem);
+  font-size: clamp(2.45rem, 10.5vw, 5.45rem);
   line-height: 0.98;
   letter-spacing: 0;
   margin: 0;
 }
 .hero__amp { display: block; font-size: 0.5em; margin: 0.08em 0; color: var(--gold-bright); opacity: 0.95; }
-.hero__ornament { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 1.8rem auto 1.4rem; color: var(--gold-bright); }
+.hero__ornament { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 1.45rem auto 1.1rem; color: var(--gold-bright); }
 .hero__ornament .line { width: 46px; height: 1px; background: currentColor; opacity: 0.6; }
-.hero__date { font-family: var(--font-body); font-size: clamp(0.74rem, 3vw, 0.9rem); letter-spacing: 0.4em; text-transform: uppercase; opacity: 0.95; }
+.hero__date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 48px;
+  padding: 0.82rem clamp(1.25rem, 4.5vw, 2rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 2.6vw, 0.86rem);
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--wine-deep);
+  background:
+    linear-gradient(90deg, rgba(169,130,63,0.82), rgba(255,247,226,0.98) 18%, rgba(216,185,120,0.96) 50%, rgba(255,247,226,0.98) 82%, rgba(169,130,63,0.82));
+  border: 1px solid rgba(255,247,226,0.72);
+  box-shadow:
+    0 16px 40px rgba(34,7,12,0.42),
+    0 0 28px rgba(216,185,120,0.24),
+    inset 0 0 0 1px rgba(110,31,42,0.08);
+}
+.hero__date::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(110,31,42,0.18);
+  pointer-events: none;
+}
+.hero__date::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 64%;
+  height: 10px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(216,185,120,0.42), transparent 70%);
+  pointer-events: none;
+}
 .hero__cta { margin-top: 2.2rem; }
 .hero__scroll {
   position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%);
@@ -745,11 +802,26 @@ body.intro-locked { overflow: hidden; }
   }
   .hero__frame { inset: 14px; }
   .hero__frame::before { inset: 7px; }
-  .hero__eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; margin-bottom: 1.1rem; }
-  .hero__names { font-size: clamp(3rem, 18vw, 4.55rem); }
-  .hero__ornament { gap: 0.55rem; margin: 1.25rem auto 1rem; }
+  .hero__eyebrow {
+    gap: 0.55rem;
+    font-size: clamp(0.74rem, 3.6vw, 0.88rem);
+    letter-spacing: 0.16em;
+    margin-bottom: 0.85rem;
+  }
+  .hero__eyebrow::before,
+  .hero__eyebrow::after { width: 18px; }
+  .hero__names { font-size: clamp(2.35rem, 13vw, 3.45rem); }
+  .hero__ornament { gap: 0.55rem; margin: 0.9rem auto 0.9rem; }
   .hero__ornament .line { width: 28px; }
-  .hero__date { font-size: 0.66rem; letter-spacing: 0.28em; }
+  .hero__date {
+    min-height: 46px;
+    max-width: min(100%, 345px);
+    padding: 0.78rem 1.1rem;
+    font-size: clamp(0.64rem, 3vw, 0.74rem);
+    letter-spacing: 0.16em;
+  }
+  .hero__date::before { inset: 4px; }
+  .hero__date::after { width: 72%; }
   .hero__cta { margin-top: 1.4rem; }
   .hero__scroll { display: none; }
   .countdown {
