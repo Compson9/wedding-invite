@@ -671,11 +671,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; margin: 0; 
 .guestbook__form { background: var(--blush); padding: clamp(1.5rem, 5vw, 2rem); border: 1px solid rgba(169,130,63,0.3); margin-bottom: 2.2rem; }
 .guestbook__form .rsvp__input { margin-bottom: 1rem; }
 .guestbook__submit { width: 100%; }
-.guestbook__list { display: grid; gap: 1.1rem; }
-.gb-entry { padding: 1.4rem 1.5rem; background: var(--champagne); border-left: 2px solid var(--rose); }
-.gb-entry__msg { font-family: var(--font-display); font-style: italic; font-size: 1.12rem; color: var(--wine); line-height: 1.5; margin-bottom: 0.5rem; }
-.gb-entry__meta { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-.guestbook__empty { text-align: center; color: var(--ink-soft); font-style: italic; padding: 1.5rem 0; opacity: 0.8; }
 
 .contact { max-width: 720px; margin: 0 auto; }
 .contact__cards { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }

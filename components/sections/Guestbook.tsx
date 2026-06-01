@@ -6,25 +6,15 @@ import { Reveal } from "@/components/shared/Reveal";
 import { SectionHead } from "@/components/shared/SectionHead";
 import { whatsappUrl } from "@/data/integration";
 
-type GuestbookEntry = {
-  name: string;
-  msg: string;
-  when: string;
-};
-
 export function Guestbook() {
   const [name, setName] = useState("");
   const [msg, setMsg] = useState("");
-  const [entries, setEntries] = useState<GuestbookEntry[]>([]);
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem("guestbook-whatsapp-list") || "[]");
-      if (Array.isArray(saved)) setEntries(saved);
-    } catch {
-      // Local storage is a convenience only; WhatsApp remains the source of delivery.
-    }
+    localStorage.removeItem("guestbook");
+    localStorage.removeItem("guestbook-whatsapp-list");
+    localStorage.removeItem("guestbook-fallback-list");
   }, []);
 
   const whatsappMessage = [
@@ -38,14 +28,6 @@ export function Guestbook() {
     event.preventDefault();
     if (!name || !msg) return;
 
-    const payload: GuestbookEntry = { name, msg, when: "just now" };
-    const next = [payload, ...entries];
-    setEntries(next);
-    try {
-      localStorage.setItem("guestbook-whatsapp-list", JSON.stringify(next));
-    } catch {
-      // Local storage is a convenience only; WhatsApp remains the source of delivery.
-    }
     window.open(whatsappUrl(whatsappMessage), "_blank", "noopener,noreferrer");
     setSent(true);
     setName("");
@@ -90,19 +72,6 @@ export function Guestbook() {
             </div>
           </form>
         </Reveal>
-
-        <div className="guestbook__list">
-          {entries.length === 0 ? (
-            <p className="guestbook__empty">Messages sent from this device will appear here.</p>
-          ) : (
-            entries.map((entry, index) => (
-              <Reveal key={`${entry.name}-${entry.when}-${index}`} className="gb-entry" delay={Math.min(index, 3)}>
-                <p className="gb-entry__msg">&ldquo;{entry.msg}&rdquo;</p>
-                <p className="gb-entry__meta">- {entry.name} &middot; {entry.when}</p>
-              </Reveal>
-            ))
-          )}
-        </div>
       </div>
     </section>
   );
