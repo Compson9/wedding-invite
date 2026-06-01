@@ -1,6 +1,7 @@
 "use client";
 
 import { MouseEvent, useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { Icon } from "@/components/shared/Icon";
 import { Ornament } from "@/components/shared/Ornament";
 import { wedding } from "@/data/wedding";
@@ -78,9 +79,14 @@ function Countdown({ target = wedding.date }: { target?: Date }) {
 
 export function Hero() {
   const [revealed, setRevealed] = useState(false);
+  const [celebrating, setCelebrating] = useState(false);
 
   useEffect(() => {
-    window.__weddingHeroReveal = () => setRevealed(true);
+    window.__weddingHeroReveal = () => {
+      setRevealed(true);
+      setCelebrating(true);
+      window.setTimeout(() => setCelebrating(false), 4200);
+    };
     const fallback = window.setTimeout(() => setRevealed(true), 4000);
     return () => {
       window.clearTimeout(fallback);
@@ -103,7 +109,19 @@ export function Hero() {
       <div className="hero__photo" aria-hidden="true" />
       <HeroBackdrop />
       <div className="hero__sweep" aria-hidden="true" />
-      <div className="hero__frame" aria-hidden="true" />
+      <div className="hero__frame" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+      {celebrating && (
+        <div className="hero__confetti" aria-hidden="true">
+          {Array.from({ length: 32 }).map((_, index) => (
+            <span key={index} style={{ "--i": index } as CSSProperties} />
+          ))}
+        </div>
+      )}
       <div className="hero__inner">
         <p className="hero__eyebrow">We're getting married</p>
         <h1 className="hero__names">

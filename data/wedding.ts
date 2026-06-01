@@ -53,8 +53,8 @@ export const wedding: WeddingConfig = {
   officiant: "MC Free Soul",
   rsvpBy: "15th June 2026",
   venueName: "Chairman Agare House",
-  venueAddress: "Chairman Agare House, Accra, Ghana",
-  mapQuery: "Chairman Agare House, Accra, Ghana",
+  venueAddress: "Closest landmark: Balloon Hotel, Kasoa, Ghana",
+  mapQuery: "Balloon Hotel, Kasoa, Ghana",
   musicTitle: "Just the Two of Us",
   musicArtist: "Bill Withers",
   program: [
