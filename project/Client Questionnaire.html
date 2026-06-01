@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wedding Invite · Client Questionnaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream:       #F5EFE6;
+    --cream-soft:  #FBF7F1;
+    --sage-300:    #A8B5A0;
+    --sage-500:    #7C8471;
+    --forest:      #2F3A2C;
+    --ink:         #2A2620;
+    --ink-soft:    #5C5247;
+    --rule:        rgba(47,58,44,0.18);
+    --font-display: "Cormorant Garamond", Georgia, serif;
+    --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #e8e4dc; }
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    font-size: 11pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Page card — mimics an A4 sheet on screen, prints full bleed. */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 16px auto;
+    padding: 22mm 20mm;
+    background: var(--cream-soft);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-of-type { page-break-after: auto; }
+
+  /* --- Cover page ----------------------------------------------- */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--forest);
+    color: var(--cream);
+    padding: 28mm 20mm;
+  }
+  .cover__eyebrow {
+    font-size: 9pt;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--sage-300);
+    margin-bottom: 4rem;
+  }
+  .cover__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 48pt;
+    line-height: 1;
+    margin: 0 0 1.5rem;
+    color: var(--cream);
+  }
+  .cover__amp {
+    display: block;
+    font-size: 0.55em;
+    opacity: 0.7;
+    margin: 0.2em 0;
+  }
+  .cover__sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14pt;
+    color: var(--sage-300);
+    margin-top: 1rem;
+    max-width: 30ch;
+    line-height: 1.4;
+  }
+  .cover__meta {
+    margin-top: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 4rem;
+    border-top: 1px solid rgba(245,239,230,0.2);
+    text-align: left;
+  }
+  .cover__meta-row {
+    font-size: 9pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-300);
+  }
+  .cover__meta-row span {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14pt;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--cream);
+    border-bottom: 1px dashed rgba(245,239,230,0.3);
+    padding-bottom: 0.3rem;
+    min-height: 1.6em;
+  }
+  .ornament {
+    color: var(--sage-300);
+    margin: 2rem 0;
+  }
+
+  /* --- Section header ------------------------------------------- */
+  .section-head {
+    text-align: center;
+    margin: 0 0 2.5rem;
+  }
+  .section-head .num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 10pt;
+    letter-spacing: 0.4em;
+    color: var(--sage-500);
+    text-transform: uppercase;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28pt;
+    line-height: 1.1;
+    color: var(--forest);
+    margin: 0.5rem 0 0.75rem;
+  }
+  .section-head p {
+    font-size: 10pt;
+    color: var(--ink-soft);
+    max-width: 40ch;
+    margin: 0 auto;
+  }
+  .section-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--sage-500);
+    margin: 1rem auto;
+    opacity: 0.5;
+  }
+
+  /* --- Question rows -------------------------------------------- */
+  .q {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--rule);
+    page-break-inside: avoid;
+  }
+  .q:first-of-type { border-top: none; }
+  .q__num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14pt;
+    color: var(--sage-500);
+    line-height: 1.1;
+  }
+  .q__label {
+    font-size: 10.5pt;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  .q__hint {
+    font-size: 9pt;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 0.15rem;
+    line-height: 1.4;
+  }
+
+  /* Write-in lines — printable for handwriting */
+  .lines {
+    margin-top: 0.55rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .lines .line {
+    border-bottom: 1px dashed rgba(47,58,44,0.3);
+    height: 1em;
+  }
+  .lines--1 .line:nth-child(n+2) { display: none; }
+  .lines--2 .line:nth-child(n+3) { display: none; }
+
+  /* Checkbox grids */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1rem;
+    margin-top: 0.6rem;
+  }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 10pt;
+    color: var(--ink);
+  }
+  .check__box {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--forest);
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  /* --- Footer on each page --------------------------------------- */
+  .page-foot {
+    position: absolute;
+    bottom: 12mm;
+    left: 20mm;
+    right: 20mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-500);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
+  }
+  .page-foot__brand {
+    font-family: var(--font-display);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11pt;
+    color: var(--forest);
+  }
+
+  /* --- Back page ------------------------------------------------- */
+  .closing {
+    text-align: center;
+    background: var(--forest);
+    color: var(--cream);
+    padding: 28mm 20mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .closing h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 36pt;
+    line-height: 1.05;
+    margin: 0 0 1.5rem;
+    color: var(--cream);
+  }
+  .closing p {
+    color: var(--sage-300);
+    max-width: 42ch;
+    margin: 0 auto 2rem;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+  .closing .ornament { color: var(--sage-300); margin: 2rem 0 3rem; }
+  .closing__sign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 4rem;
+  }
+  .closing__sign-col {
+    text-align: left;
+  }
+  .closing__sign-col label {
+    display: block;
+    font-size: 8pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage-300);
+    margin-bottom: 2.5rem;
+  }
+  .closing__sign-col .sig-line {
+    border-bottom: 1px solid rgba(245,239,230,0.5);
+    height: 1.2em;
+    margin-bottom: 0.5rem;
+  }
+  .closing__sign-col span {
+    font-size: 9pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-300);
+  }
+
+  /* --- Print rules ---------------------------------------------- */
+  .toolbar {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  .toolbar button {
+    font-family: var(--font-body);
+    font-size: 10pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--forest);
+    color: var(--cream);
+    border: none;
+    padding: 0.85rem 1.25rem;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  }
+  .toolbar button:hover { background: #1F2920; }
+
+  @media print {
+    html, body { background: white; }
+    .toolbar { display: none; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      width: auto;
+      min-height: auto;
+    }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- COVER                                                         -->
+<!-- ============================================================ -->
+<section class="page cover">
+  <p class="cover__eyebrow">Digital Wedding Invite</p>
+
+  <svg class="ornament" width="120" height="40" viewBox="0 0 200 70" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <path d="M10 35 L70 35"/>
+    <path d="M40 35 Q50 25 55 32 Q60 38 65 30" stroke-width="0.9"/>
+    <path d="M30 35 Q40 45 45 38 Q50 32 55 40" stroke-width="0.9"/>
+    <path d="M100 22 L112 35 L100 48 L88 35 Z" fill="currentColor" fill-opacity="0.18"/>
+    <circle cx="100" cy="35" r="2" fill="currentColor"/>
+    <path d="M130 35 L190 35"/>
+    <path d="M135 35 Q140 25 145 32 Q150 38 155 30" stroke-width="0.9"/>
+    <path d="M145 35 Q155 45 160 38 Q165 32 170 40" stroke-width="0.9"/>
+  </svg>
+
+  <h1 class="cover__title">
+    The Client
+    <span class="cover__amp">&amp;</span>
+    Questionnaire
+  </h1>
+  <p class="cover__sub">Everything we need to design your wedding invite, in one place.</p>
+
+  <div class="cover__meta">
+    <div class="cover__meta-row">Couple<span></span></div>
+    <div class="cover__meta-row">Wedding Date<span></span></div>
+    <div class="cover__meta-row">Prepared By<span></span></div>
+    <div class="cover__meta-row">Date Issued<span></span></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 · BASICS                                            -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">One</span>
+    <h2>The Basics</h2>
+    <div class="section-rule"></div>
+    <p>Names, dates, contact details, and the core identity of your wedding.</p>
+  </div>
+
+  <div class="q"><span class="q__num">1</span><div>
+    <div class="q__label">Full names of both partners — and how each should be displayed (first names only, with surnames, monograms)?</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">2</span><div>
+    <div class="q__label">Wedding date and start time</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">3</span><div>
+    <div class="q__label">Wedding hashtag or nickname</div>
+    <div class="q__hint">e.g. #AlexAndDiane2026</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">4</span><div>
+    <div class="q__label">Language(s) for the invite</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>English only</span>
+      <span class="check"><span class="check__box"></span>French only</span>
+      <span class="check"><span class="check__box"></span>Bilingual EN / FR toggle</span>
+      <span class="check"><span class="check__box"></span>Other: ____________</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">5</span><div>
+    <div class="q__label">Preferred URL or subdomain for the invite</div>
+    <div class="q__hint">e.g. alexanddiane.com — or a subdomain we host for you</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">6</span><div>
+    <div class="q__label">Primary point of contact for guest questions</div>
+    <div class="q__hint">Name, email, phone</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 02</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Basics</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 · TONE & STYLE                                      -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Two</span>
+    <h2>Tone &amp; Style</h2>
+    <div class="section-rule"></div>
+    <p>How the invite should feel before anyone reads a word.</p>
+  </div>
+
+  <div class="q"><span class="q__num">7</span><div>
+    <div class="q__label">Three words that describe the vibe</div>
+    <div class="q__hint">e.g. intimate, elegant, modern</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">8</span><div>
+    <div class="q__label">References — invites or sites you love, and why</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">9</span><div>
+    <div class="q__label">Anything you want to <em>avoid</em> stylistically</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">10</span><div>
+    <div class="q__label">Formality level</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Black tie</span>
+      <span class="check"><span class="check__box"></span>Cocktail</span>
+      <span class="check"><span class="check__box"></span>Garden party</span>
+      <span class="check"><span class="check__box"></span>Casual</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">11</span><div>
+    <div class="q__label">Color palette preference</div>
+    <div class="q__hint">Or shall we propose 2–3 directions?</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">12</span><div>
+    <div class="q__label">Typography direction</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Editorial serif</span>
+      <span class="check"><span class="check__box"></span>Modern sans</span>
+      <span class="check"><span class="check__box"></span>Script accents</span>
+      <span class="check"><span class="check__box"></span>Designer's choice</span>
+    </div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 03</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Tone</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 · YOUR STORY                                        -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Three</span>
+    <h2>Your Story</h2>
+    <div class="section-rule"></div>
+    <p>The narrative behind your "Our Love Story" section.</p>
+  </div>
+
+  <div class="q"><span class="q__num">13</span><div>
+    <div class="q__label">How you met — short paragraph</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">14</span><div>
+    <div class="q__label">3–5 milestone moments with approximate dates</div>
+    <div class="q__hint">First trip, moving in together, engagement, etc.</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">15</span><div>
+    <div class="q__label">The proposal story — short version</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">16</span><div>
+    <div class="q__label">A favorite quote or vow line you'd like featured</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 04</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Story</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 · EVENTS & PROGRAM                                  -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Four</span>
+    <h2>Events &amp; Program</h2>
+    <div class="section-rule"></div>
+    <p>Every gathering across the wedding, hour by hour.</p>
+  </div>
+
+  <div class="q"><span class="q__num">17</span><div>
+    <div class="q__label">List every event — rehearsal dinner, ceremony, reception, after-party, brunch</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">18</span><div>
+    <div class="q__label">For each event: name, date, start/end time, venue, full address, dress code, who's invited</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">19</span><div>
+    <div class="q__label">Map links or coordinates for each venue</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">20</span><div>
+    <div class="q__label">Parking and transport notes per venue</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">21</span><div>
+    <div class="q__label">Children welcome? Plus-ones policy?</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">22</span><div>
+    <div class="q__label">Full timeline of the wedding day, hour by hour</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">23</span><div>
+    <div class="q__label">Special moments to highlight</div>
+    <div class="q__hint">First dance, cake cutting, surprise performance…</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">24</span><div>
+    <div class="q__label">Officiant, MC, key wedding party — if you want them credited</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 05</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Events</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 · RSVP                                              -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Five</span>
+    <h2>RSVP</h2>
+    <div class="section-rule"></div>
+    <p>How guests confirm — and where their responses go.</p>
+  </div>
+
+  <div class="q"><span class="q__num">25</span><div>
+    <div class="q__label">RSVP deadline date</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">26</span><div>
+    <div class="q__label">Which questions should the RSVP form ask?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Attendance (yes / no)</span>
+      <span class="check"><span class="check__box"></span>Number of guests</span>
+      <span class="check"><span class="check__box"></span>Plus-one name</span>
+      <span class="check"><span class="check__box"></span>Dietary restrictions</span>
+      <span class="check"><span class="check__box"></span>Meal choice</span>
+      <span class="check"><span class="check__box"></span>Song request</span>
+      <span class="check"><span class="check__box"></span>Message for the couple</span>
+      <span class="check"><span class="check__box"></span>Accommodation needed</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">27</span><div>
+    <div class="q__label">Where should RSVPs land?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Email notification</span>
+      <span class="check"><span class="check__box"></span>Google Sheet</span>
+      <span class="check"><span class="check__box"></span>Admin dashboard</span>
+      <span class="check"><span class="check__box"></span>Other: ____________</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">28</span><div>
+    <div class="q__label">Private code per guest so the invite is invite-only?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Yes — unique code per guest</span>
+      <span class="check"><span class="check__box"></span>Yes — one shared password</span>
+      <span class="check"><span class="check__box"></span>No — public link</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">29</span><div>
+    <div class="q__label">Auto-confirmation email to guests — what should it say?</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 06</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>RSVP</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 · TRAVEL & GIFTS                                    -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Six</span>
+    <h2>Travel &amp; Gifts</h2>
+    <div class="section-rule"></div>
+    <p>Helping guests get there — and the optional registry.</p>
+  </div>
+
+  <div class="q"><span class="q__num">30</span><div>
+    <div class="q__label">Closest airport(s) and recommended arrival / departure windows</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">31</span><div>
+    <div class="q__label">Hotel block(s) with negotiated rates — name, address, code, deadline</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">32</span><div>
+    <div class="q__label">Alternative hotels at different price points</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">33</span><div>
+    <div class="q__label">Local attractions or things to do for guests extending their trip</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">34</span><div>
+    <div class="q__label">Transportation arrangements — shuttles, rideshare codes</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">35</span><div>
+    <div class="q__label">Visa or travel requirements for international guests</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">36</span><div>
+    <div class="q__label">Are you accepting gifts, or "presence not presents"?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Honeymoon fund</span>
+      <span class="check"><span class="check__box"></span>Traditional registry</span>
+      <span class="check"><span class="check__box"></span>Charity registry</span>
+      <span class="check"><span class="check__box"></span>No gifts, please</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">37</span><div>
+    <div class="q__label">Payment methods or registry links</div>
+    <div class="q__hint">PayPal, Venmo, bank transfer, retailer URLs, charity name</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 07</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Travel &amp; Gifts</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 7 · MEDIA                                             -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Seven</span>
+    <h2>Music, Photos &amp; Assets</h2>
+    <div class="section-rule"></div>
+    <p>The materials we'll need from you to bring the invite to life.</p>
+  </div>
+
+  <div class="q"><span class="q__num">38</span><div>
+    <div class="q__label">Background music — do you have an audio file?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Yes — will send mp3</span>
+      <span class="check"><span class="check__box"></span>Need a recommendation</span>
+      <span class="check"><span class="check__box"></span>No music — silent invite</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">39</span><div>
+    <div class="q__label">Autoplay on open, or require a play button?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Start on envelope open</span>
+      <span class="check"><span class="check__box"></span>Play button only</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">40</span><div>
+    <div class="q__label">Song title and artist credit to display</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">41</span><div>
+    <div class="q__label">Hero photo of the couple</div>
+    <div class="q__hint">High-res, landscape, ideally with negative space for the names overlay</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">42</span><div>
+    <div class="q__label">4–6 photos for the love-story timeline</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">43</span><div>
+    <div class="q__label">Venue photographs</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">44</span><div>
+    <div class="q__label">Gallery photos — how many, and any captions</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">45</span><div>
+    <div class="q__label">Monogram, logo, or crest for the envelope seal</div>
+    <div class="q__hint">Existing artwork, or letters we should set?</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 08</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Media</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 8 · INTERACTIONS & SECTIONS                           -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Eight</span>
+    <h2>Features &amp; Sections</h2>
+    <div class="section-rule"></div>
+    <p>Tick everything you'd like included on the site.</p>
+  </div>
+
+  <div class="q"><span class="q__num">46</span><div>
+    <div class="q__label">Interactive features</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Envelope-open intro</span>
+      <span class="check"><span class="check__box"></span>Countdown timer</span>
+      <span class="check"><span class="check__box"></span>Parallax hero image</span>
+      <span class="check"><span class="check__box"></span>Scroll-reveal fades</span>
+      <span class="check"><span class="check__box"></span>Public guestbook</span>
+      <span class="check"><span class="check__box"></span>Guest photo upload</span>
+      <span class="check"><span class="check__box"></span>Live-stream link</span>
+      <span class="check"><span class="check__box"></span>Add-to-calendar button</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">47</span><div>
+    <div class="q__label">Sections to include</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Hero with names &amp; date</span>
+      <span class="check"><span class="check__box"></span>Countdown</span>
+      <span class="check"><span class="check__box"></span>Our Story / Timeline</span>
+      <span class="check"><span class="check__box"></span>Wedding party profiles</span>
+      <span class="check"><span class="check__box"></span>Day Program</span>
+      <span class="check"><span class="check__box"></span>Event Details</span>
+      <span class="check"><span class="check__box"></span>Dress Code</span>
+      <span class="check"><span class="check__box"></span>Travel &amp; Accommodation</span>
+      <span class="check"><span class="check__box"></span>Gifts / Registry</span>
+      <span class="check"><span class="check__box"></span>RSVP</span>
+      <span class="check"><span class="check__box"></span>Photo Gallery</span>
+      <span class="check"><span class="check__box"></span>Guestbook</span>
+      <span class="check"><span class="check__box"></span>FAQ</span>
+      <span class="check"><span class="check__box"></span>Live Stream</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">48</span><div>
+    <div class="q__label">Privacy — public, password-protected, or guest-specific access?</div>
+    <div class="lines lines--2"><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">49</span><div>
+    <div class="q__label">Should Google index the site?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Yes</span>
+      <span class="check"><span class="check__box"></span>No</span>
+    </div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 09</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Features</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 9 · LOGISTICS                                         -->
+<!-- ============================================================ -->
+<section class="page">
+  <div class="section-head">
+    <span class="num">Nine</span>
+    <h2>Logistics &amp; Delivery</h2>
+    <div class="section-rule"></div>
+    <p>Hosting, timeline, and how we'll work together.</p>
+  </div>
+
+  <div class="q"><span class="q__num">50</span><div>
+    <div class="q__label">Where will the site be hosted?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>We host on your behalf</span>
+      <span class="check"><span class="check__box"></span>Your own domain</span>
+      <span class="check"><span class="check__box"></span>A subdomain we provide</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">51</span><div>
+    <div class="q__label">Do you need self-service editing access after launch?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Yes</span>
+      <span class="check"><span class="check__box"></span>No — we'll handle changes</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">52</span><div>
+    <div class="q__label">How long should the site stay live?</div>
+    <div class="q__hint">Often 6–12 months post-wedding for photo sharing</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">53</span><div>
+    <div class="q__label">Analytics — would you like to see RSVP and visitor stats?</div>
+    <div class="check-grid">
+      <span class="check"><span class="check__box"></span>Yes</span>
+      <span class="check"><span class="check__box"></span>No</span>
+    </div>
+  </div></div>
+
+  <div class="q"><span class="q__num">54</span><div>
+    <div class="q__label">When do you want to send invites out?</div>
+    <div class="q__hint">This drives the delivery deadline</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">55</span><div>
+    <div class="q__label">Was a save-the-date sent? Share the design for consistency.</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">56</span><div>
+    <div class="q__label">Who has final approval?</div>
+    <div class="q__hint">Just the couple, or are parents / planners involved?</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">57</span><div>
+    <div class="q__label">Budget range</div>
+    <div class="lines lines--1"><div class="line"></div></div>
+  </div></div>
+
+  <div class="q"><span class="q__num">58</span><div>
+    <div class="q__label">Anything else you'd like guests to know that we haven't covered?</div>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div></div>
+
+  <div class="page-foot">
+    <span>Page 10</span>
+    <span class="page-foot__brand">Wedding Invite · Client Brief</span>
+    <span>Logistics</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CLOSING                                                       -->
+<!-- ============================================================ -->
+<section class="page closing">
+  <p style="font-size: 9pt; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage-300); margin: 0 0 3rem;">In Closing</p>
+
+  <svg class="ornament" width="120" height="40" viewBox="0 0 200 70" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <path d="M10 35 L70 35"/>
+    <path d="M40 35 Q50 25 55 32 Q60 38 65 30" stroke-width="0.9"/>
+    <path d="M30 35 Q40 45 45 38 Q50 32 55 40" stroke-width="0.9"/>
+    <path d="M100 22 L112 35 L100 48 L88 35 Z" fill="currentColor" fill-opacity="0.18"/>
+    <circle cx="100" cy="35" r="2" fill="currentColor"/>
+    <path d="M130 35 L190 35"/>
+    <path d="M135 35 Q140 25 145 32 Q150 38 155 30" stroke-width="0.9"/>
+    <path d="M145 35 Q155 45 160 38 Q165 32 170 40" stroke-width="0.9"/>
+  </svg>
+
+  <h2>Thank you.</h2>
+  <p>
+    Once we have your answers, we'll send back two or three style directions
+    within a week. From there, it's a few rounds of refinement and a launch
+    you'll be proud to share.
+  </p>
+
+  <div class="closing__sign">
+    <div class="closing__sign-col">
+      <label>Couple Signature</label>
+      <div class="sig-line"></div>
+      <span>Date</span>
+      <div class="sig-line"></div>
+    </div>
+    <div class="closing__sign-col">
+      <label>Designer Signature</label>
+      <div class="sig-line"></div>
+      <span>Date</span>
+      <div class="sig-line"></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
