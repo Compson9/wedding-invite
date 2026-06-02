@@ -75,6 +75,6 @@ export const wedding: WeddingConfig = {
   giftRegistry: ["0546411192", "0539849863"],
   contacts: [
     { role: "For Guest Enquiries", name: "Elizabeth Donkor", phone: "0533621517" },
-    { role: "For Guest Enquiries", name: "Cobbinah", phone: "0557202013", email: "joecobbi224@gmail.com" },
+    { role: "For Guest Enquiries", name: "Ebenezer Cobbinah", phone: "0557202013", email: "joecobbi224@gmail.com" },
   ],
 };
