@@ -8,7 +8,7 @@ export function Program() {
       <SectionHead
         eyebrow="The Day"
         title="Order of Programme"
-        lede="A graceful morning of family, tradition, blessing, and celebration."
+        lede="The celebration begins at 10:00 AM and concludes by 1:00 PM."
       />
       <div className="program-list">
         {wedding.program.map((item, index) => (
